@@ -72,7 +72,8 @@ Requirements
 
 About
 ==============
-我希望调用 API 时，有着和调用系统自带 API 一样的体验，所以我并没有为 Category 方法添加前缀。我已经用工具扫描过这个项目中的 API，确保没有对系统 API 产生影响。我知道没有前缀的 Category 可能会带来麻烦，所以如果你只需要其中部分功能，请先查看上面那些拆分出来的子项目。
+该控制器继承自:UICollectionView
+代码还有不足点，比如如何监听scrollToItemAtIndexPath结束后的回掉，查了很多资料没找到合适的解决方案，就暂时搁着。
 
 License
 ==============

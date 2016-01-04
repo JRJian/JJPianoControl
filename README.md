@@ -73,7 +73,8 @@ Requirements
 About
 ==============
 该控制器继承自:UICollectionView
-代码还有不足点，比如如何监听scrollToItemAtIndexPath结束后的回掉，查了很多资料没找到合适的解决方案，就暂时搁着。
+
+代码还有不足点，比如如何监听scrollToItemAtIndexPath结束后的回调，查了很多资料没找到合适的解决方案，就暂时搁着。
 
 License
 ==============

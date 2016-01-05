@@ -205,7 +205,7 @@ class JJPianoBarView : UICollectionView {
     override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
         
         let tIndexPath: NSIndexPath? = self.indexPathForCell(self.curCell!)
-        let fIndexPath: NSIndexPath? = self.indexPathForCell(self.lastCell!)
+        let fIndexPath: NSIndexPath? = self.indexPathForCell(self.lastCell ?? self.curCell!)
         self.pianoDelegate?.playPiano?(fIndexPath!, to: tIndexPath!)
         
         self.calmAnimate()
@@ -244,31 +244,12 @@ class JJPianoBarView : UICollectionView {
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(after * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
             self.loadVisibleCells()
-            print("row:\(indexPath.row), section:\(indexPath.section)")
             let toCell: UICollectionViewCell? = self.cellForItemAtIndexPath(indexPath)
             if let _ = toCell {
                 self.curCell = toCell!
                 self.calmAnimate()
             }
         }
-        
-        // does not work
-//        UIView.animateWithDuration(JJPianoControlConfig.animationDuration, animations: { () -> Void in
-//            self.scrollToItemAtIndexPath(indexPath, atScrollPosition: UICollectionViewScrollPosition.CenteredHorizontally, animated: true)
-//            }) { (finish) -> Void in
-//                if finish {
-//                    let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(0.15 * Double(NSEC_PER_SEC)))
-//                    dispatch_after(delayTime, dispatch_get_main_queue()) {
-//                        self.loadVisibleCells()
-//                        print("row:\(indexPath.row), section:\(indexPath.section)")
-//                        let toCell: UICollectionViewCell? = self.cellForItemAtIndexPath(indexPath)
-//                        if let _ = toCell {
-//                            self.curCell = toCell!
-//                            self.calmAnimate()
-//                        }
-//                    }
-//                }
-//        }
     }
     
     private func loadVisibleCells() {
@@ -343,13 +324,7 @@ class JJPianoBarView : UICollectionView {
     private var orderCells: Array<UICollectionViewCell>!
     
     // 保存当前index
-    private var curCell: UICollectionViewCell? {
-        didSet {
-            if self.lastCell == nil {
-                self.lastCell = curCell
-            }
-        }
-    }
+    private var curCell: UICollectionViewCell?
     
     // 上一个index
     private var lastCell: UICollectionViewCell?

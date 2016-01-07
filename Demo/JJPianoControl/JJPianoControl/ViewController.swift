@@ -28,7 +28,7 @@ class ViewController: UIViewController, JJPianoBarViewDelegate, UICollectionView
         bar.delegate   = self
         bar.pianoDelegate = self
         self.view.addSubview(bar)
-        bar.autoresizingMask = [UIViewAutoresizing.FlexibleTopMargin]
+        bar.autoresizingMask = [.FlexibleTopMargin]
         bar.scrollTo(0)
         self.paino = bar
         

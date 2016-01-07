@@ -90,7 +90,7 @@ class JJPianoBarCell : UICollectionViewCell {
         self.textLabel.backgroundColor  = UIColor.clearColor()
         self.textLabel.frame            = self.iconView.frame
         self.textLabel.textColor        = UIColor.whiteColor()
-        self.textLabel.textAlignment    = NSTextAlignment.Center
+        self.textLabel.textAlignment    = .Center
         
         self.backgroundColor = UIColor.whiteColor()
     }

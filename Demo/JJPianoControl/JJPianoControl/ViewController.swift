@@ -12,15 +12,19 @@ class ViewController: UIViewController, JJPianoBarViewDelegate, UICollectionView
     
     var paino: JJPianoBarView?
     var nextIndex: Int = 0
+    var avatars: [String]!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // init
+        self.avatars = ["avatar-1", "avatar-2", "avatar-3", "avatar-4", "avatar-5", "avatar-6", "avatar-7"];
         
         // config
         JJPianoControlConfig.margin = 2.0
         
         // setup UI
-        let frame = CGRectMake(0, UIScreen.mainScreen().bounds.height - 66, UIScreen.mainScreen().bounds.width, 66)
+        let frame = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
         let layout: JJPianoBarFlowLayout = JJPianoBarFlowLayout()
         let bar: JJPianoBarView = JJPianoBarView(frame: frame, collectionViewLayout: layout)
         bar.registerClass(JJPianoBarCell.self, forCellWithReuseIdentifier: "Cell")
@@ -34,7 +38,8 @@ class ViewController: UIViewController, JJPianoBarViewDelegate, UICollectionView
         
         let rect: CGRect = CGRectMake(100, 100, 100, 60)
         let btn: UIButton! = UIButton(frame: rect)
-        btn.setTitle("click", forState: UIControlState.Normal)
+        btn.center = self.view.center
+        btn.setTitle("next", forState: UIControlState.Normal)
         btn.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)
     }
@@ -62,6 +67,7 @@ class ViewController: UIViewController, JJPianoBarViewDelegate, UICollectionView
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell : JJPianoBarCell! = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! JJPianoBarCell
         cell.text = String(indexPath.row)
+        cell.iconUrl = self.avatars[indexPath.row % avatars.count]
         return cell
     }
     

@@ -16,11 +16,14 @@ public struct JJPianoControlConfig {
     // 间距
     static var margin : CGFloat = 2.0
     
+    // 图片内间距
+    static var keyPadding : CGFloat = 2.0
+    
     // 一页显示的最大钢琴键数
     static var numberOfKeysInPage: Int = 9
     
     // 钢琴键圆角度数
-    static var keyCornerRadius: CGFloat = 5.0
+    static var keyCornerRadius: CGFloat = 7.5
     
     // 点击选中的最突出的钢琴键离顶部的距离
     static var pressKeyMaxTop: CGFloat = 8.0
@@ -67,30 +70,24 @@ class JJPianoBarCell : UICollectionViewCell {
         self.addSubview(self.textLabel)
         
         // 设置 左上|右上 圆角
-        var maskPath: UIBezierPath;
+        var maskPath: UIBezierPath
         maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: CGSize(width: JJPianoControlConfig.keyCornerRadius, height: JJPianoControlConfig.keyCornerRadius))
         
-        let maskLayer: CAShapeLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds;
-        maskLayer.path  = maskPath.CGPath;
-        self.layer.mask = maskLayer;
-        
+        var maskLayer: CAShapeLayer = CAShapeLayer()
+        maskLayer.frame = self.bounds
+        maskLayer.path  = maskPath.CGPath
+        self.layer.mask = maskLayer
         self.layer.masksToBounds = true
+        
+        var iconFrame = CGRectMake(0, 0, frame.size.width - JJPianoControlConfig.keyPadding * 2.0, frame.size.width - JJPianoControlConfig.keyPadding * 2.0)
+        maskPath = UIBezierPath(roundedRect: iconFrame, byRoundingCorners: [.AllCorners], cornerRadii: CGSize(width: JJPianoControlConfig.keyCornerRadius, height: JJPianoControlConfig.keyCornerRadius))
+        maskLayer = CAShapeLayer()
+        maskLayer.frame = iconFrame
+        maskLayer.path = maskPath.CGPath
+        iconFrame.origin = CGPointMake(JJPianoControlConfig.keyPadding, JJPianoControlConfig.keyPadding)
+        self.iconView.frame = iconFrame
         self.iconView.layer.masksToBounds = true
-        
-        // draw black block
-        UIGraphicsBeginImageContext(frame.size);
-        let context         = UIGraphicsGetCurrentContext();
-        CGContextSetFillColorWithColor(context, UIColor.blackColor().CGColor);
-        CGContextFillRect(context, CGRectMake(0, 0, frame.size.width, frame.size.height))
-        let img             = UIGraphicsGetImageFromCurrentImageContext();
-        self.iconView.image = img
-        self.iconView.frame = CGRectMake(5, 5, frame.size.width - 10, 35)
-        
-        self.textLabel.backgroundColor  = UIColor.clearColor()
-        self.textLabel.frame            = self.iconView.frame
-        self.textLabel.textColor        = UIColor.whiteColor()
-        self.textLabel.textAlignment    = .Center
+        self.iconView.layer.mask = maskLayer
         
         self.backgroundColor = UIColor.whiteColor()
     }
@@ -137,7 +134,7 @@ class JJPianoBarFlowLayout : UICollectionViewFlowLayout {
             left = (self.itemSize.width + JJPianoControlConfig.margin) * CGFloat(index) + JJPianoControlConfig.margin
             frame.size = self.itemSize
             frame.origin = CGPointMake(left, self.collectionView!.bounds.size.height - JJPianoControlConfig.nomarlKeyHeight)
-            attributes.frame = frame;
+            attributes.frame = frame
             cache.append(attributes)
         }
         
@@ -161,7 +158,7 @@ class JJPianoBarFlowLayout : UICollectionViewFlowLayout {
     override func collectionViewContentSize() -> CGSize {
         let contentWidth  = (self.itemSize.width + JJPianoControlConfig.margin) * CGFloat(self.collectionView!.numberOfItemsInSection(0)) + JJPianoControlConfig.margin
         let contentHeight = self.collectionView!.bounds.size.height
-        return CGSizeMake(contentWidth, contentHeight);
+        return CGSizeMake(contentWidth, contentHeight)
     }
     
     override func shouldInvalidateLayoutForBoundsChange(newBounds: CGRect) -> Bool {

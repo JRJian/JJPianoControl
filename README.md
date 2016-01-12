@@ -32,11 +32,14 @@ public struct JJPianoControlConfig {
     // 间距
     static var margin : CGFloat = 2.0
     
+    // 图片内间距
+    static var keyPadding : CGFloat = 2.0
+    
     // 一页显示的最大钢琴键数
     static var numberOfKeysInPage: Int = 9
     
     // 钢琴键圆角度数
-    static var keyCornerRadius: CGFloat = 5.0
+    static var keyCornerRadius: CGFloat = 7.5
     
     // 点击选中的最突出的钢琴键离顶部的距离
     static var pressKeyMaxTop: CGFloat = 8.0

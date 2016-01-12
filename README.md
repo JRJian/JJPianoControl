@@ -18,8 +18,23 @@ Installation
 ==============
 
 暂时没有加入Cocoapods
-手动引入JJPianoControl入工程即可
+手动引入JJPianoControll文件夹到工程即可使用
 
+#### 初始化
+
+```
+
+let frame = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
+let layout: JJPianoBarFlowLayout = JJPianoBarFlowLayout()
+let bar: JJPianoBarView = JJPianoBarView(frame: frame, collectionViewLayout: layout)
+bar.registerClass(JJPianoBarCell.self, forCellWithReuseIdentifier: "Cell")
+bar.dataSource = self
+bar.delegate   = self
+bar.pianoDelegate = self
+self.view.addSubview(bar)
+bar.scrollTo(0)
+
+```
 
 Documentation
 ==============
@@ -64,6 +79,14 @@ public struct JJPianoControlConfig {
    
 func playPiano(from: NSIndexPath, to: NSIndexPath) {
     print("play from:\(from.row) to:\(to.row)")
+}
+
+// mark: - UIColletionView Delegate
+
+func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    let cell : JJPianoBarCell! = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! JJPianoBarCell
+    cell.iconUrl = self.avatars[indexPath.row % avatars.count]
+    return cell
 }
 
 ```

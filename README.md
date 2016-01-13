@@ -20,22 +20,6 @@ Installation
 暂时没有加入Cocoapods
 手动引入JJPianoControll文件夹到工程即可使用
 
-#### 初始化
-
-```
-
-let frame = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
-let layout: JJPianoBarFlowLayout = JJPianoBarFlowLayout()
-let bar: JJPianoBarView = JJPianoBarView(frame: frame, collectionViewLayout: layout)
-bar.registerClass(JJPianoBarCell.self, forCellWithReuseIdentifier: "Cell")
-bar.dataSource = self
-bar.delegate   = self
-bar.pianoDelegate = self
-self.view.addSubview(bar)
-bar.scrollTo(0)
-
-```
-
 Documentation
 ==============
 #### 配置
@@ -71,6 +55,22 @@ public struct JJPianoControlConfig {
 
 ```
 
+#### 初始化
+
+```
+
+let frame = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
+let layout: JJPianoBarFlowLayout = JJPianoBarFlowLayout()
+let bar: JJPianoBarView = JJPianoBarView(frame: frame, collectionViewLayout: layout)
+bar.registerClass(JJPianoBarCell.self, forCellWithReuseIdentifier: "Cell")
+bar.dataSource = self
+bar.delegate   = self
+bar.pianoDelegate = self
+self.view.addSubview(bar)
+bar.scrollTo(0)
+
+```
+
 #### 代理
 
 ```
@@ -100,7 +100,7 @@ About
 ==============
 该控制器继承自:UICollectionView
 
-代码还有不足点，比如如何监听scrollToItemAtIndexPath结束后的回调，查了很多资料没找到合适的解决方案，就暂时搁着。
+代码还有不足点，比如如何监听scrollToItemAtIndexPath结束后的回调，暂时没找到合适的解决方案。
 
 License
 ==============

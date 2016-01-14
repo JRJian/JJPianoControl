@@ -5,7 +5,7 @@ JJPianoControl
 [![Support](https://img.shields.io/badge/support-iOS%208%2B%20-blue.svg?style=flat)](https://www.apple.com/nl/ios/)&nbsp;
 
 
-此灵感来自最美应用APP，由于该APP的底部切换栏体验起来流畅性不是很好，所以自己仿着实现了一个。代码是用`Swift`写的，由于初学，代码也许不是很优雅，后期会继续完善！
+此灵感来自最美应用APP。
 
 
 Demo Project

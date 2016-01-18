@@ -14,28 +14,28 @@ import UIKit
 public struct JJPianoControlConfig {
     
     // 间距
-    static var margin : CGFloat = 2.0
+    static var margin               : CGFloat           = 2.0
     
     // 图片内间距
-    static var keyPadding : CGFloat = 2.0
+    static var keyPadding           : CGFloat           = 2.0
     
     // 一页显示的最大钢琴键数
-    static var numberOfKeysInPage: Int = 9
+    static var numberOfKeysInPage   : Int               = 9
     
     // 钢琴键圆角度数
-    static var keyCornerRadius: CGFloat = 7.5
+    static var keyCornerRadius      : CGFloat           = 7.5
     
     // 点击选中的最突出的钢琴键离顶部的距离
-    static var pressKeyMaxTop: CGFloat = 8.0
+    static var pressKeyMaxTop       : CGFloat           = 8.0
     
     // 正常状态的钢琴键高度
-    static var nomarlKeyHeight: CGFloat = 8.0
+    static var nomarlKeyHeight      : CGFloat           = 8.0
+    
+    // 动画持续时间
+    static var animationDuration    : NSTimeInterval    = 0.6
     
     // 取消触屏时延迟时间执行动画
     static var cancelTouchAnimationAfterDelay: NSTimeInterval = 0.5
-    
-    // 动画持续时间
-    static var animationDuration: NSTimeInterval = 0.6
 }
 
 // MARK : - JJPianoBarCell
@@ -68,28 +68,28 @@ class JJPianoBarCell : UICollectionViewCell {
         self.textLabel  = UILabel()
         self.addSubview(self.iconView)
         self.addSubview(self.textLabel)
+        self.backgroundColor = UIColor.whiteColor()
         
-        // 设置 左上|右上 圆角
+        // 设置钢琴键 左上|右上 圆角
         var maskPath: UIBezierPath
         maskPath = UIBezierPath(roundedRect: self.bounds, byRoundingCorners: [.TopLeft, .TopRight], cornerRadii: CGSize(width: JJPianoControlConfig.keyCornerRadius, height: JJPianoControlConfig.keyCornerRadius))
         
         var maskLayer: CAShapeLayer = CAShapeLayer()
-        maskLayer.frame = self.bounds
-        maskLayer.path  = maskPath.CGPath
-        self.layer.mask = maskLayer
-        self.layer.masksToBounds = true
+        maskLayer.frame             = self.bounds
+        maskLayer.path              = maskPath.CGPath
+        self.layer.mask             = maskLayer
+        self.layer.masksToBounds    = true
         
+        // 设置图片圆角
         var iconFrame = CGRectMake(0, 0, frame.size.width - JJPianoControlConfig.keyPadding * 2.0, frame.size.width - JJPianoControlConfig.keyPadding * 2.0)
-        maskPath = UIBezierPath(roundedRect: iconFrame, byRoundingCorners: [.AllCorners], cornerRadii: CGSize(width: JJPianoControlConfig.keyCornerRadius, height: JJPianoControlConfig.keyCornerRadius))
-        maskLayer = CAShapeLayer()
-        maskLayer.frame = iconFrame
-        maskLayer.path = maskPath.CGPath
-        iconFrame.origin = CGPointMake(JJPianoControlConfig.keyPadding, JJPianoControlConfig.keyPadding)
+        maskPath    = UIBezierPath(roundedRect: iconFrame, byRoundingCorners: [.AllCorners], cornerRadii: CGSize(width: JJPianoControlConfig.keyCornerRadius, height: JJPianoControlConfig.keyCornerRadius))
+        maskLayer   = CAShapeLayer()
+        maskLayer.frame     = iconFrame
+        maskLayer.path      = maskPath.CGPath
+        iconFrame.origin    = CGPointMake(JJPianoControlConfig.keyPadding, JJPianoControlConfig.keyPadding)
         self.iconView.frame = iconFrame
-        self.iconView.layer.masksToBounds = true
-        self.iconView.layer.mask = maskLayer
-        
-        self.backgroundColor = UIColor.whiteColor()
+        self.iconView.layer.masksToBounds   = true
+        self.iconView.layer.mask            = maskLayer
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -104,9 +104,8 @@ class JJPianoBarFlowLayout : UICollectionViewFlowLayout {
     
     override init() {
         super.init()
-        
-        self.scrollDirection = UICollectionViewScrollDirection.Horizontal
-        self.sectionInset = UIEdgeInsetsMake(0, JJPianoControlConfig.margin, 0, JJPianoControlConfig.margin)
+        self.scrollDirection    = UICollectionViewScrollDirection.Horizontal
+        self.sectionInset       = UIEdgeInsetsMake(0, JJPianoControlConfig.margin, 0, JJPianoControlConfig.margin)
         self.minimumLineSpacing = JJPianoControlConfig.margin
     }
     
@@ -123,18 +122,18 @@ class JJPianoBarFlowLayout : UICollectionViewFlowLayout {
         var cache: Array<UICollectionViewLayoutAttributes> = Array()
         let numberOfItems = self.collectionView!.numberOfItemsInSection(0)
         
-        var frame = CGRectZero
-        var left: CGFloat = 0.0
+        var frame   = CGRectZero
+        var left    : CGFloat = 0.0
         
         for index in 0..<numberOfItems {
             let indexPath: NSIndexPath = NSIndexPath(forItem: index, inSection: 0)
             let attributes: UICollectionViewLayoutAttributes = UICollectionViewLayoutAttributes(forCellWithIndexPath: indexPath)
             attributes.zIndex = index
             
-            left = (self.itemSize.width + JJPianoControlConfig.margin) * CGFloat(index) + JJPianoControlConfig.margin
-            frame.size = self.itemSize
-            frame.origin = CGPointMake(left, self.collectionView!.bounds.size.height - JJPianoControlConfig.nomarlKeyHeight)
-            attributes.frame = frame
+            left                = (self.itemSize.width + JJPianoControlConfig.margin) * CGFloat(index) + JJPianoControlConfig.margin
+            frame.size          = self.itemSize
+            frame.origin        = CGPointMake(left, self.collectionView!.bounds.size.height - JJPianoControlConfig.nomarlKeyHeight)
+            attributes.frame    = frame
             cache.append(attributes)
         }
         
@@ -180,11 +179,11 @@ class JJPianoBarView : UICollectionView {
     
     override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
-        self.clipsToBounds = false
-        self.scrollEnabled = false
-        self.backgroundColor = UIColor.clearColor()
+        self.clipsToBounds      = false
+        self.scrollEnabled      = false
+        self.backgroundColor    = UIColor.clearColor()
+        self.showsVerticalScrollIndicator   = false
         self.showsHorizontalScrollIndicator = false
-        self.showsVerticalScrollIndicator = false
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -318,14 +317,14 @@ class JJPianoBarView : UICollectionView {
             }, completion: nil)
     }
     
-    private var orderCells: Array<UICollectionViewCell>!
+    private var orderCells  : Array<UICollectionViewCell>!
     
     // 保存当前index
-    private var curCell: UICollectionViewCell?
+    private var curCell     : UICollectionViewCell?
     
     // 上一个index
-    private var lastCell: UICollectionViewCell?
+    private var lastCell    : UICollectionViewCell?
     
     // 代理
-    var pianoDelegate : JJPianoBarViewDelegate?
+    var pianoDelegate       : JJPianoBarViewDelegate?
 }

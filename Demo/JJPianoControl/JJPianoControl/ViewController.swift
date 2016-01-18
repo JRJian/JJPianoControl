@@ -24,21 +24,21 @@ class ViewController: UIViewController, JJPianoBarViewDelegate, UICollectionView
         JJPianoControlConfig.margin = 2.0
         
         // setup UI
-        let frame = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
-        let layout: JJPianoBarFlowLayout = JJPianoBarFlowLayout()
-        let bar: JJPianoBarView = JJPianoBarView(frame: frame, collectionViewLayout: layout)
+        let frame   = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
+        let layout  : JJPianoBarFlowLayout  = JJPianoBarFlowLayout()
+        let bar     : JJPianoBarView        = JJPianoBarView(frame: frame, collectionViewLayout: layout)
         bar.registerClass(JJPianoBarCell.self, forCellWithReuseIdentifier: "Cell")
-        bar.dataSource = self
-        bar.delegate   = self
-        bar.pianoDelegate = self
+        bar.delegate            = self
+        bar.dataSource          = self
+        bar.pianoDelegate       = self
+        bar.autoresizingMask    = [.FlexibleTopMargin]
+        self.paino              = bar
         self.view.addSubview(bar)
-        bar.autoresizingMask = [.FlexibleTopMargin]
         bar.scrollTo(0)
-        self.paino = bar
         
-        let rect: CGRect = CGRectMake(100, 100, 100, 60)
-        let btn: UIButton! = UIButton(frame: rect)
-        btn.center = self.view.center
+        let rect    : CGRect    = CGRectMake(100, 100, 100, 60)
+        let btn     : UIButton! = UIButton(frame: rect)
+        btn.center  = self.view.center
         btn.setTitle("next", forState: UIControlState.Normal)
         btn.addTarget(self, action: "buttonClicked:", forControlEvents: UIControlEvents.TouchUpInside)
         self.view.addSubview(btn)

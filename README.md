@@ -29,28 +29,28 @@ Documentation
 public struct JJPianoControlConfig {
     
     // 间距
-    static var margin : CGFloat = 2.0
+    static var margin               : CGFloat           = 2.0
     
     // 图片内间距
-    static var keyPadding : CGFloat = 2.0
+    static var keyPadding           : CGFloat           = 2.0
     
     // 一页显示的最大钢琴键数
-    static var numberOfKeysInPage: Int = 9
+    static var numberOfKeysInPage   : Int               = 9
     
     // 钢琴键圆角度数
-    static var keyCornerRadius: CGFloat = 7.5
+    static var keyCornerRadius      : CGFloat           = 7.5
     
     // 点击选中的最突出的钢琴键离顶部的距离
-    static var pressKeyMaxTop: CGFloat = 8.0
+    static var pressKeyMaxTop       : CGFloat           = 8.0
     
     // 正常状态的钢琴键高度
-    static var nomarlKeyHeight: CGFloat = 8.0
+    static var nomarlKeyHeight      : CGFloat           = 8.0
+    
+    // 动画持续时间
+    static var animationDuration    : NSTimeInterval    = 0.6
     
     // 取消触屏时延迟时间执行动画
     static var cancelTouchAnimationAfterDelay: NSTimeInterval = 0.5
-    
-    // 动画持续时间
-    static var animationDuration: NSTimeInterval = 0.6
 }
 
 ```

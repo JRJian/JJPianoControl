@@ -59,13 +59,19 @@ public struct JJPianoControlConfig {
 
 ```
 
-let frame = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
-let layout: JJPianoBarFlowLayout = JJPianoBarFlowLayout()
-let bar: JJPianoBarView = JJPianoBarView(frame: frame, collectionViewLayout: layout)
+// config
+JJPianoControlConfig.margin = 2.0
+
+// setup UI
+let frame   = CGRectMake(0, UIScreen.mainScreen().bounds.height - 54, UIScreen.mainScreen().bounds.width, 54)
+let layout  : JJPianoBarFlowLayout  = JJPianoBarFlowLayout()
+let bar     : JJPianoBarView        = JJPianoBarView(frame: frame, collectionViewLayout: layout)
 bar.registerClass(JJPianoBarCell.self, forCellWithReuseIdentifier: "Cell")
-bar.dataSource = self
-bar.delegate   = self
-bar.pianoDelegate = self
+bar.delegate            = self
+bar.dataSource          = self
+bar.pianoDelegate       = self
+bar.autoresizingMask    = [.FlexibleTopMargin]
+self.paino              = bar
 self.view.addSubview(bar)
 bar.scrollTo(0)
 

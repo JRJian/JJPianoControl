@@ -18,7 +18,7 @@ Installation
 ==============
 
 暂时没有加入Cocoapods
-手动引入JJPianoControll文件夹到工程即可使用
+手动引入JJPianoControl文件夹到工程即可使用
 
 Documentation
 ==============

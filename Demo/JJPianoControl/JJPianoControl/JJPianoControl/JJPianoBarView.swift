@@ -13,10 +13,10 @@ import UIKit
 
 public struct JJPianoControlConfig {
     
-    // 间距
+    // 钢琴键之间的间距
     static var margin               : CGFloat           = 2.0
     
-    // 图片内间距
+    // 钢琴键内间距
     static var keyPadding           : CGFloat           = 2.0
     
     // 一页显示的最大钢琴键数
